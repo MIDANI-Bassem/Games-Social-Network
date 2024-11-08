@@ -1,0 +1,36 @@
+services:
+
+  postgres:
+    container_name: postgres-sql-gsn
+    image: postgres
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      GDATA: /var/lib/postgresql/data
+      POSTGRES_DB: games_social_network
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - game-loom-api-network
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: mail-dev-gsn
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+networks:
+  game-loom-api-network:
+    driver: bridge
+
+
+
+volumes:
+  postgres:
+    driver: local
+
+
