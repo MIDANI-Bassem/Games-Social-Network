@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.gameloom.connect.game.common.BaseEntity;
 import org.gameloom.connect.game.feedback.bo.Feedback;
-import org.gameloom.connect.game.history.GameTrack;
+import org.gameloom.connect.game.history.bo.GameTrack;
 import org.gameloom.connect.game.user.bo.User;
 
 import java.util.ArrayList;

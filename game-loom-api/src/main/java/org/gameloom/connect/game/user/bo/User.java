@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gameloom.connect.game.game.bo.Game;
-import org.gameloom.connect.game.history.GameTrack;
+import org.gameloom.connect.game.history.bo.GameTrack;
 import org.gameloom.connect.game.role.bo.Role;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

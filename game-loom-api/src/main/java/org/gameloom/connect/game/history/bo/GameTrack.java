@@ -1,4 +1,4 @@
-package org.gameloom.connect.game.history;
+package org.gameloom.connect.game.history.bo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
