@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gameloom.connect.game.game.bo.Game;
+import org.gameloom.connect.game.history.GameTrack;
 import org.gameloom.connect.game.role.bo.Role;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,6 +52,10 @@ public class User implements UserDetails , Principal {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "owner")
+    private List<Game> games;
+    @OneToMany(mappedBy = "user")
+    private List<GameTrack> transactions = new ArrayList<>();
 
 
 
