@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.gameloom.connect.game.common.PageResponse;
 import org.gameloom.connect.game.exception.OperationNotPermittedException;
+import org.gameloom.connect.game.file.FileStorageService;
 import org.gameloom.connect.game.game.bo.Game;
 import org.gameloom.connect.game.game.dal.GameRepository;
 import org.gameloom.connect.game.game.dto.GameRequest;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +29,7 @@ public class GameServiceImpl implements GameService {
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
     private final GameTrackRepository gameTrackRepository;
+    private final FileStorageService fileStorageService;
 
 
     /**
@@ -237,5 +240,17 @@ public class GameServiceImpl implements GameService {
         gameTrack.setReturnApproved(true);
 
         return gameTrackRepository.save(gameTrack).getId();
+    }
+
+    /**
+     * @param file
+     * @param connectedUser
+     * @param gameId
+     */
+    @Override
+    public void uploadGameImage(MultipartFile file, Authentication connectedUser, Integer gameId) {
+        Game game = gameRepository.findById(gameId).orElseThrow(()-> new EntityNotFoundException("No Game found with this Id = " + gameId));
+        User user = (User) connectedUser.getPrincipal();
+        var gameImage = fileStorageService.saveFile(file, user.getId());
     }
 }

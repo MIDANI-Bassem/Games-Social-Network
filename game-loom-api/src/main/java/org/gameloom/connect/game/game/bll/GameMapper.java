@@ -1,12 +1,12 @@
 package org.gameloom.connect.game.game.bll;
 
+import org.gameloom.connect.game.file.FileUtils;
 import org.gameloom.connect.game.game.bo.Game;
-import org.gameloom.connect.game.game.bo.GameCategories;
 import org.gameloom.connect.game.game.dto.GameRequest;
 import org.gameloom.connect.game.history.bo.GameTrack;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+
 
 @Service
 public class GameMapper {
@@ -43,7 +43,7 @@ public class GameMapper {
                 .owner(game.getOwner().toString())
                 .rate(game.getRate())
                 .categories(game.getGameCategories() != null ? game.getGameCategories() : null)
-                //.image(game.getImage())
+                .image(FileUtils.readFileFromLocation(game.getImage()))
 
                 .build();
     }
