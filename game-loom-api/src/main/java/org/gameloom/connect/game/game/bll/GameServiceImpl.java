@@ -6,6 +6,8 @@ import org.gameloom.connect.game.common.PageResponse;
 import org.gameloom.connect.game.game.bo.Game;
 import org.gameloom.connect.game.game.dal.GameRepository;
 import org.gameloom.connect.game.game.dto.GameRequest;
+import org.gameloom.connect.game.history.bo.GameTrack;
+import org.gameloom.connect.game.history.dal.GameTrackRepository;
 import org.gameloom.connect.game.user.bo.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +24,13 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
+    private final GameTrackRepository gameTrackRepository;
 
 
     /**
      * @param request
      * @param connectedUser
-     * @return
+     * @return saved gameId
      */
     @Override
     public Integer save(GameRequest request, Authentication connectedUser) {
@@ -40,7 +42,7 @@ public class GameServiceImpl implements GameService {
 
     /**
      * @param gameId
-     * @return
+     * @return game
      */
     @Override
     public GameResponse findById(Integer gameId) {
@@ -54,7 +56,7 @@ public class GameServiceImpl implements GameService {
      * @param page
      * @param size
      * @param connectedUser
-     * @return
+     * @return AllGames
      */
     @Override
     public PageResponse<GameResponse> findAllGames(int page, int size, Authentication connectedUser) {
@@ -71,6 +73,76 @@ public class GameServiceImpl implements GameService {
                 games.getTotalPages(),
                 games.isFirst(),
                 games.isLast()
+        );
+    }
+
+    /**
+     * @param page
+     * @param size
+     * @param connectedUser
+     * @return AllGamesByOwner
+     */
+    @Override
+    public PageResponse<GameResponse> findAllGamesByOwner(int page, int size, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("creationDate").descending());
+        Page<Game> games = gameRepository.findAll(GameSpecification.withOwnerId(user.getId()), pageable);
+        List<GameResponse> gameResponse = games.stream().map(gameMapper::toGameResponse).toList();
+
+        return new PageResponse<>(
+                gameResponse,
+                games.getNumber(),
+                games.getSize(),
+                games.getTotalElements(),
+                games.getTotalPages(),
+                games.isFirst(),
+                games.isLast()
+        );
+    }
+
+    /**
+     * @param page
+     * @param size
+     * @param connectedUser
+     * @return
+     */
+    @Override
+    public PageResponse<BorrowedGameResponse> findAllBorrowedGames(int page, int size, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("creationDate").descending());
+        Page<GameTrack> allBorrowedGames = gameTrackRepository.findAllBorrowedGames(pageable, user.getId());
+        List<BorrowedGameResponse> gameResponse = allBorrowedGames.stream().map(gameMapper::toBorrowedGameResponse).toList();
+        return new PageResponse<>(
+                gameResponse,
+                allBorrowedGames.getNumber(),
+                allBorrowedGames.getSize(),
+                allBorrowedGames.getTotalElements(),
+                allBorrowedGames.getTotalPages(),
+                allBorrowedGames.isFirst(),
+                allBorrowedGames.isLast()
+        );
+    }
+
+    /**
+     * @param page
+     * @param size
+     * @param connectedUser
+     * @return
+     */
+    @Override
+    public PageResponse<BorrowedGameResponse> findAllReturnedGames(int page, int size, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("creationDate").descending());
+        Page<GameTrack> allBorrowedGames = gameTrackRepository.findAllReturnedGames(pageable, user.getId());
+        List<BorrowedGameResponse> gameResponse = allBorrowedGames.stream().map(gameMapper::toBorrowedGameResponse).toList();
+        return new PageResponse<>(
+                gameResponse,
+                allBorrowedGames.getNumber(),
+                allBorrowedGames.getSize(),
+                allBorrowedGames.getTotalElements(),
+                allBorrowedGames.getTotalPages(),
+                allBorrowedGames.isFirst(),
+                allBorrowedGames.isLast()
         );
     }
 }

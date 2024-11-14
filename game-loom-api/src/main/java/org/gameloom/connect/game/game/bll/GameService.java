@@ -10,4 +10,10 @@ public interface GameService {
     GameResponse findById(Integer gameId);
 
     PageResponse<GameResponse> findAllGames(int page, int size, Authentication connectedUser);
+
+    PageResponse<GameResponse> findAllGamesByOwner(int page, int size, Authentication connectedUser);
+
+    PageResponse<BorrowedGameResponse> findAllBorrowedGames(int page, int size, Authentication connectedUser);
+
+    PageResponse<BorrowedGameResponse> findAllReturnedGames(int page, int size, Authentication connectedUser);
 }

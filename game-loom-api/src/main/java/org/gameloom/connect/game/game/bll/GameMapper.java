@@ -3,6 +3,7 @@ package org.gameloom.connect.game.game.bll;
 import org.gameloom.connect.game.game.bo.Game;
 import org.gameloom.connect.game.game.bo.GameCategories;
 import org.gameloom.connect.game.game.dto.GameRequest;
+import org.gameloom.connect.game.history.bo.GameTrack;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -45,5 +46,17 @@ public class GameMapper {
                 //.image(game.getImage())
 
                 .build();
+    }
+
+    public BorrowedGameResponse toBorrowedGameResponse(GameTrack gameTrack) {
+        return BorrowedGameResponse.builder()
+                .id(gameTrack.getGame().getId())
+                .name(gameTrack.getGame().getName())
+                .description(gameTrack.getGame().getDescription())
+                .rate(gameTrack.getGame().getRate())
+                .returned(gameTrack.isReturned())
+                .returnApproved(gameTrack.isReturnApproved())
+                .build();
+
     }
 }
