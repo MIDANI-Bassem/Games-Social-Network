@@ -74,6 +74,43 @@ public class GameController {
         return ResponseEntity.ok(gameService.findAllReturnedGames(page, size, connectedUser));
 
     }
+    @PatchMapping("shareable/{game-id}")
+    public ResponseEntity<Integer> updateGameStatus(
+            @PathVariable("game-id") Integer gameId,
+            Authentication connectedUser
+
+    ){
+        return ResponseEntity.ok(gameService.updateShareableStatus(gameId, connectedUser));
+
+    }
+    @PostMapping("/borrow/{game-id}")
+    public ResponseEntity<Integer> borrowGame(
+            @PathVariable("game-id") Integer gameId,
+            Authentication connectedUser
+
+    ){
+        return ResponseEntity.ok(gameService.borrowGame(gameId, connectedUser));
+
+    }
+    @PatchMapping("/borrow/return/{game-id}")
+    public ResponseEntity<Integer> returnGame(
+            @PathVariable("game-id") Integer gameId,
+            Authentication connectedUser
+
+    ){
+        return ResponseEntity.ok(gameService.returnGame(gameId, connectedUser));
+
+    }
+    @PatchMapping("/borrow/return/approve/{game-id}")
+    public ResponseEntity<Integer> approveReturnGame(
+            @PathVariable("game-id") Integer gameId,
+            Authentication connectedUser
+
+    ){
+        return ResponseEntity.ok(gameService.approveReturnGame(gameId, connectedUser));
+
+    }
+
 
 
 

@@ -16,4 +16,12 @@ public interface GameService {
     PageResponse<BorrowedGameResponse> findAllBorrowedGames(int page, int size, Authentication connectedUser);
 
     PageResponse<BorrowedGameResponse> findAllReturnedGames(int page, int size, Authentication connectedUser);
+
+    Integer updateShareableStatus(Integer gameId, Authentication connectedUser);
+
+    Integer borrowGame(Integer gameId, Authentication connectedUser);
+
+    Integer returnGame(Integer gameId, Authentication connectedUser);
+
+    Integer approveReturnGame(Integer gameId, Authentication connectedUser);
 }

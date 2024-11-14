@@ -3,6 +3,7 @@ package org.gameloom.connect.game.game.bll;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.gameloom.connect.game.common.PageResponse;
+import org.gameloom.connect.game.exception.OperationNotPermittedException;
 import org.gameloom.connect.game.game.bo.Game;
 import org.gameloom.connect.game.game.dal.GameRepository;
 import org.gameloom.connect.game.game.dto.GameRequest;
@@ -17,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -144,5 +146,96 @@ public class GameServiceImpl implements GameService {
                 allBorrowedGames.isFirst(),
                 allBorrowedGames.isLast()
         );
+    }
+
+    /**
+     * @param gameId
+     * @param connectedUser
+     * @return
+     */
+    @Override
+    public Integer updateShareableStatus(Integer gameId, Authentication connectedUser) {
+        Game game = gameRepository.findById(gameId).orElseThrow(()-> new EntityNotFoundException("No Game found with this Id = " + gameId));
+        User user = (User) connectedUser.getPrincipal();
+        if(!Objects.equals(game.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("Only owner can update games shareable status");
+        }
+        game.setShareable(!game.isShareable());
+        gameRepository.save(game);
+        return gameId;
+    }
+
+    /**
+     * @param gameId
+     * @param connectedUser
+     * @return
+     */
+    @Override
+    public Integer borrowGame(Integer gameId, Authentication connectedUser) {
+        Game game = gameRepository.findById(gameId).orElseThrow(()-> new EntityNotFoundException("No Game found with this Id = " + gameId));
+        User user = (User) connectedUser.getPrincipal();
+        if(!game.isShareable()){
+            throw new OperationNotPermittedException("This game is not shareable");
+        }
+        if(Objects.equals(game.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You can not borrow your own game");
+        }
+        final boolean isBorrowed = gameTrackRepository.isAlreadyBorrowed(gameId, user.getId());
+        if(isBorrowed){
+            throw new OperationNotPermittedException("This game is already borrowed");
+        }
+        GameTrack gameTrack = GameTrack.builder()
+                .game(game)
+                .user(user)
+                .returnApproved(false)
+                .returned(false)
+                .build();
+
+
+            return gameTrackRepository.save(gameTrack).getId();
+    }
+
+    /**
+     * @param gameId
+     * @param connectedUser
+     * @return
+     */
+    @Override
+    public Integer returnGame(Integer gameId, Authentication connectedUser) {
+        Game game = gameRepository.findById(gameId).orElseThrow(()-> new EntityNotFoundException("No Game found with this Id = " + gameId));
+        User user = (User) connectedUser.getPrincipal();
+        if(!game.isShareable()){
+            throw new OperationNotPermittedException("This game is not shareable");
+        }
+        if(Objects.equals(game.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You can not borrow or return your own game");
+        }
+        GameTrack gameTrack = gameTrackRepository.findByGameIdAndUserId(gameId, user.getId())
+                .orElseThrow(() -> new OperationNotPermittedException("You didn't borrow this game"));
+        gameTrack.setReturned(true);
+
+        return gameTrackRepository.save(gameTrack).getId();
+    }
+
+    /**
+     * @param gameId
+     * @param connectedUser
+     * @return
+     */
+    @Override
+    public Integer approveReturnGame(Integer gameId, Authentication connectedUser) {
+        Game game = gameRepository.findById(gameId).orElseThrow(()-> new EntityNotFoundException("No Game found with this Id = " + gameId));
+        User user = (User) connectedUser.getPrincipal();
+        if(!game.isShareable()){
+            throw new OperationNotPermittedException("This game is not shareable");
+        }
+        if(Objects.equals(game.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You can not borrow or return your own game");
+        }
+        GameTrack gameTrack = gameTrackRepository.findByGameIdAndOwnerId(gameId, user.getId())
+                .orElseThrow(() -> new OperationNotPermittedException("The game is not returned yet"));
+        gameTrack.setReturnApproved(true);
+
+        return gameTrackRepository.save(gameTrack).getId();
     }
 }
