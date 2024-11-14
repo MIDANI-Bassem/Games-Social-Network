@@ -12,6 +12,7 @@ import org.gameloom.connect.game.feedback.bo.Feedback;
 import org.gameloom.connect.game.history.bo.GameTrack;
 import org.gameloom.connect.game.user.bo.User;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +50,7 @@ public class Game extends BaseEntity {
     private String gameDesigner;
     private String gameVersion;
     private boolean shareable;
+    private double rate;
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
@@ -59,6 +61,16 @@ public class Game extends BaseEntity {
     @OneToMany(mappedBy = "game")
     private List<GameTrack> transactions = new ArrayList<>();
 
-
+    @Transient
+    public double getRate(){
+        if(feedbacks == null || feedbacks.isEmpty()){
+            return 0.0;
+        }
+        var rate = feedbacks.stream()
+                .mapToDouble(Feedback::getNote)
+                .average()
+                .orElse(0.0);
+        return Math.round(rate*10.0)/10.0;
+    }
 
 }
