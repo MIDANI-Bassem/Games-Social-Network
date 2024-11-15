@@ -2,7 +2,6 @@ package org.gameloom.connect.game.file;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.gameloom.connect.game.game.bo.Game;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -52,7 +51,7 @@ public class FileStorageService {
             Path path = Paths.get(targetFilePath);
             try{
                 Files.write(path,file.getBytes());
-                log.info("File uploaded successfully" + targetFilePath);
+                log.info("File uploaded successfully{}", targetFilePath);
                 return targetFilePath;
 
             } catch (IOException e) {

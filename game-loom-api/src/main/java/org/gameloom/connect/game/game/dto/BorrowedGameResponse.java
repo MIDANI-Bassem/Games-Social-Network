@@ -1,4 +1,4 @@
-package org.gameloom.connect.game.game.bll;
+package org.gameloom.connect.game.game.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

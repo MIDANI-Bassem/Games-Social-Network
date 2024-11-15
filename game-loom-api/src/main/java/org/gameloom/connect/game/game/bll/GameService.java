@@ -1,7 +1,9 @@
 package org.gameloom.connect.game.game.bll;
 
 import org.gameloom.connect.game.common.PageResponse;
+import org.gameloom.connect.game.game.dto.BorrowedGameResponse;
 import org.gameloom.connect.game.game.dto.GameRequest;
+import org.gameloom.connect.game.game.dto.GameResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 

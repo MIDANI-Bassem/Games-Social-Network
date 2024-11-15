@@ -2,7 +2,9 @@ package org.gameloom.connect.game.game.bll;
 
 import org.gameloom.connect.game.file.FileUtils;
 import org.gameloom.connect.game.game.bo.Game;
+import org.gameloom.connect.game.game.dto.BorrowedGameResponse;
 import org.gameloom.connect.game.game.dto.GameRequest;
+import org.gameloom.connect.game.game.dto.GameResponse;
 import org.gameloom.connect.game.history.bo.GameTrack;
 import org.springframework.stereotype.Service;
 
