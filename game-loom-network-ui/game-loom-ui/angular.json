@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "game-loom-network-ui": {
+    "game-loom-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/game-loom-network-ui",
+            "outputPath": "dist/game-loom-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "game-loom-network-ui:build:production"
+              "browserTarget": "game-loom-ui:build:production"
             },
             "development": {
-              "browserTarget": "game-loom-network-ui:build:development"
+              "browserTarget": "game-loom-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "game-loom-network-ui:build"
+            "browserTarget": "game-loom-ui:build"
           }
         },
         "test": {
