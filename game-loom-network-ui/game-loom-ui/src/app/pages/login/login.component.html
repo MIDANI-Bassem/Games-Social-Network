@@ -1,0 +1,41 @@
+<form class="d-flex flex-column justify-content-center bg-primary-subtle p-3 rounded">
+    <div class="d-flex flex-column mb-3">
+        <div class="alert alert-danger w-100" role="alert" *ngIf="errorMsg.length">
+            <p *ngFor="let msg of errorMsg">{{msg}}</p>
+        </div>
+    </div>
+    <div class="d-flex flex-column mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <div class="w-100">
+            <input
+                [(ngModel)]="authRequest.email"
+                type="text"
+                class="form-control w-100"
+                id="login"
+                aria-describedby="emailHelp"
+                placeholder="email@example.com"
+                required
+            >
+        </div>
+    </div>
+    <div class="d-flex flex-column mb-3">
+        <label for="inputPassword" class="form-label">Password</label>
+        <div class="w-100">
+            <input
+                [(ngModel)]="authRequest.password"
+                type="password"
+                class="form-control w-100"
+                id="inputPassword"
+                required
+            >
+        </div>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+        <button (click)="login()" type="button" class="btn btn-primary">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
+        </button>
+        <button (click)="register()" type="button" class="btn btn-secondary">
+            Register
+        </button>
+    </div>
+</form>
