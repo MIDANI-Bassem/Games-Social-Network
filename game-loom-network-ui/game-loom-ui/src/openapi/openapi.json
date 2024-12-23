@@ -53,7 +53,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/PageResponseGameResponse"
                   }
@@ -81,7 +81,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "integer",
                     "format": "int32"
@@ -131,7 +131,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "object"
                   }
@@ -162,7 +162,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "integer",
                     "format": "int32"
@@ -193,7 +193,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "integer",
                     "format": "int32"
@@ -224,7 +224,7 @@
             "202": {
               "description": "Accepted",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "object"
                   }
@@ -254,7 +254,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/AuthenticationResponse"
                   }
@@ -285,7 +285,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "integer",
                     "format": "int32"
@@ -317,7 +317,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "integer",
                     "format": "int32"
@@ -349,7 +349,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "type": "integer",
                     "format": "int32"
@@ -381,7 +381,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/GameResponse"
                   }
@@ -413,7 +413,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/PageResponseBorrowedGameResponse"
                   }
@@ -445,7 +445,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/PageResponseGameResponse"
                   }
@@ -477,7 +477,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/PageResponseBorrowedGameResponse"
                   }
@@ -528,7 +528,7 @@
             "200": {
               "description": "OK",
               "content": {
-                "*/*": {
+                "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/PageResponseFeedbackResponse"
                   }
