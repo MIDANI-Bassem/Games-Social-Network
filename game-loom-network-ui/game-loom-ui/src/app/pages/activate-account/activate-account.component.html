@@ -1,1 +1,31 @@
-<p>activate-account works!</p>
+<div class="container" *ngIf="submitted else codeForm">
+
+    <div class="activate-message" *ngIf="isOk else activationError">
+        <h2 class="text-center">Activation successful!</h2>
+        <p class="text-center">Your account has been activated</p>
+        <button class="btn btn-primary" (click)="onLogin()">Login</button>
+    </div>
+    <ng-template #activationError>
+        <div class="activate-error">
+            <h2 class="text-center">Activation code is invalid</h2>
+            <p class="text-center">{{message}}</p>
+            <button class="btn btn-primary" (click)="submitted=false">Try again</button>
+        </div>
+    </ng-template>
+
+</div>
+<ng-template #codeForm>
+    <div class="container">
+        <div class="text-center text-white">
+            <h2>Type your activation code</h2>
+            <code-input 
+                [isCodeHidden]="false"
+                [codeLength]="6"
+                [code] ="'number'"
+                (codeCompleted)="onCodeCompleted($event)"
+                >
+
+            </code-input>
+        </div>
+    </div>
+</ng-template>
