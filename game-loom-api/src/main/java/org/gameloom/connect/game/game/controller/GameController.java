@@ -39,7 +39,7 @@ public class GameController {
     @GetMapping
     public ResponseEntity<PageResponse<GameResponse>> findAllGames(
             @RequestParam(name = "page", defaultValue="0", required = false) int page,
-            @RequestParam(name = "page", defaultValue="10", required = false) int size,
+            @RequestParam(name = "size", defaultValue="10", required = false) int size,
             Authentication connectedUser
 
             ){
@@ -49,7 +49,7 @@ public class GameController {
     @GetMapping("/owner")
     public ResponseEntity<PageResponse<GameResponse>> findAllGamesByOwner(
             @RequestParam(name = "page", defaultValue="0", required = false) int page,
-            @RequestParam(name = "page", defaultValue="10", required = false) int size,
+            @RequestParam(name = "size", defaultValue="10", required = false) int size,
             Authentication connectedUser
 
     ){

@@ -1,0 +1,12 @@
+<h1 class="text-center m-4">Games List</h1>
+<hr>
+
+<div class="d-flex justify-content-evenly gap-2 flex-wrap" *ngIf="gamesResponse?.data?.length; else noGames">
+    <app-game [game]="game" *ngFor="let game of gamesResponse.data"></app-game>
+</div>
+    
+<ng-template #noGames>
+    <div class="text-center mt-4">
+        <h4>No games available.</h4>
+    </div>
+</ng-template>

@@ -1,5 +1,6 @@
 package org.gameloom.connect.game.game.bo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -51,8 +52,10 @@ public class Game extends BaseEntity {
     private String gameVersion;
     private boolean shareable;
     private double rate;
+
     @ManyToOne
     @JoinColumn(name = "owner_id")
+    @JsonIgnore
     private User owner;
 
     @OneToMany(mappedBy = "game")

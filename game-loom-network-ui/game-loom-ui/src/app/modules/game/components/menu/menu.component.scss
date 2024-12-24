@@ -1,0 +1,9 @@
+li > a {
+    &:hover {
+        color: #456e7d;
+    }
+    &.active {
+        color: #c5242f;
+        font-weight: bold;
+    }
+}
