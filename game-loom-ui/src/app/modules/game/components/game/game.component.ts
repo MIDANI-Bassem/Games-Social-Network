@@ -8,7 +8,10 @@ import { GameResponse } from 'src/app/services/models';
 })
 export class GameComponent {
 
+
   private _game: GameResponse = {};
+  private _gamePic : string|undefined;
+  private _manage: boolean=false;
 
   @Input()
   set game(value: GameResponse) {
@@ -17,6 +20,42 @@ export class GameComponent {
   get game(): GameResponse {
     return this._game;
   }
+  get gamePic():string|undefined{
+    if(this._gamePic){
+      return 'data:image/jpg;base64, '+this._gamePic
+    }
+    return this._gamePic
+  }
+  get manage(): boolean {
+    return this._manage;
+  }
+  @Input()
+  set manage(value: boolean) {
+    this._manage = value;
+  }
 
 
+  onShowDetails() {
+
+  }
+
+  onBorrow() {
+
+  }
+
+  onAddToWishlist() {
+
+  }
+
+  onEdit() {
+
+  }
+
+  onShare() {
+
+  }
+
+  onArchive() {
+
+  }
 }

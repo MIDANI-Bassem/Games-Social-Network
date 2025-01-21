@@ -1,7 +1,7 @@
 <div class="card d-flex flex-column" style="width: 18rem;">
-    <img 
-        [src]="game.image || 'https://placehold.jp/300x200.png'" 
-        class="card-img-top" 
+    <img
+        [src]="game.image || 'https://placehold.jp/300x200.png'"
+        class="card-img-top"
         [alt]="game.name || 'Game Image'"
     >
     <div class="card-body d-flex flex-column">
@@ -16,12 +16,22 @@
             <li><strong>Rate:</strong> {{ game.rate || 'Not rated yet' }}</li>
             <li><strong>Year Published:</strong> {{ game.yearPublished || 'N/A' }}</li>
         </ul>
-        <div class="d-flex justify-content-evenly align-items-center">
-            <span><a href="#"><i class="fas fa-info-circle"></i></a></span>
-            <span><a href="#"><i class="fas fa-list-check"></i></a></span>
-            <span><a href="#"><i class="fas fa-heart text-danger"></i></a></span>
+      <div class="card-footer d-flex flex-row justify-content-between align-items-start">
+        <div>
+          <p>5 stars</p>
         </div>
-        
-        
+        <div class="d-flex justify-content-evenly align-items-center gap-2" *ngIf="!manage">
+            <span><i (click)="onShowDetails()" class="fas fa-info-circle text-primary"></i></span>
+            <span><i (click)="onBorrow()" class="fas fa-list-check"></i></span>
+            <span><i (click)="onAddToWishlist()" class="fas fa-heart text-danger"></i></span>
+        </div>
+        <div class=" (click)=ond-flex justify-content-evenly align-items-center gap-2" *ngIf="manage">
+            <span><i (click)="onEdit()" class="fas fa-edit text-success"></i></span>
+            <span><i (click)="onShare()" class="fas fa-share text-primary"></i></span>
+            <span><i (click)="onArchive()" class="fas fa-delete-left text-danger"></i></span>
+        </div>
+      </div>
+
+
     </div>
 </div>
